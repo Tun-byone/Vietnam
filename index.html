@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a1a2e">
+<title>越厦9日 · 旅行手册</title>
+<style>
+/* ===== CSS Variables - Day/Night Theme ===== */
+:root {
+  --bg: #f5f0e8;
+  --bg-card: #ffffff;
+  --bg-card-alt: #faf7f2;
+  --text: #2d2d2d;
+  --text-muted: #8a8a8a;
+  --text-light: #b0b0b0;
+  --accent: #e85d4a;
+  --accent-light: #ff8a7a;
+  --border: #e0d8cc;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.1);
+  --tag-bg: #fff3f0;
+  --tag-text: #e85d4a;
+  --warning-bg: #fff8e1;
+  --warning-text: #f57c00;
+  --route-1: #e85d4a;
+  --route-2: #4a9d8e;
+  --route-3: #d4a04a;
+  --route-4: #6a7db3;
+  --route-5: #b35d8a;
+  --night-star: rgba(255,255,255,0.6);
+}
+
+[data-theme="night"] {
+  --bg: #1a1a2e;
+  --bg-card: #232340;
+  --bg-card-alt: #1e1e38;
+  --text: #e8e8f0;
+  --text-muted: #9090a8;
+  --text-light: #6a6a80;
+  --accent: #ff6b5a;
+  --accent-light: #ff9080;
+  --border: #353560;
+  --shadow: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.4);
+  --tag-bg: #3a2a28;
+  --tag-text: #ff8a7a;
+  --warning-bg: #3a3520;
+  --warning-text: #ffb74d;
+  --night-star: rgba(255,255,255,0.8);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { font-size:16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background .6s ease, color .6s ease;
+  padding-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width:680px; margin:0 auto; padding:0 16px; }
+
+/* ===== Header ===== */
+.header {
+  text-align:center;
+  padding:32px 0 20px;
+  position:relative;
+  overflow:hidden;
+}
+.header h1 {
+  font-size:1.6rem;
+  font-weight:700;
+  letter-spacing:2px;
+  color: var(--text);
+}
+.header .subtitle {
+  font-size:.85rem;
+  color: var(--text-muted);
+  margin-top:4px;
+}
+.header .route-pills {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px;
+  margin-top:12px;
+}
+.route-pill {
+  font-size:.7rem;
+  padding:3px 10px;
+  border-radius:20px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border:1px solid var(--border);
+}
+.theme-indicator {
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:1.2rem;
+  opacity:.7;
+}
+
+/* ===== Countdown Card ===== */
+.countdown-card {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border-radius:16px;
+  padding:24px 20px;
+  text-align:center;
+  color:#fff;
+  margin-bottom:24px;
+  box-shadow: var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.countdown-card::before {
+  content:'';
+  position:absolute;
+  top:-30px; right:-30px;
+  width:100px; height:100px;
+  background:rgba(255,255,255,.1);
+  border-radius:50%;
+}
+.countdown-card::after {
+  content:'';
+  position:absolute;
+  bottom:-40px; left:-20px;
+  width:80px; height:80px;
+  background:rgba(255,255,255,.08);
+  border-radius:50%;
+}
+.countdown-label {
+  font-size:.8rem;
+  opacity:.9;
+  margin-bottom:4px;
+  position:relative;
+}
+.countdown-event {
+  font-size:1.1rem;
+  font-weight:600;
+  margin-bottom:14px;
+  position:relative;
+}
+.countdown-display {
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  position:relative;
+}
+.countdown-unit {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:56px;
+}
+.countdown-num {
+  font-size:2rem;
+  font-weight:800;
+  font-variant-numeric: tabular-nums;
+  line-height:1.1;
+  font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+}
+.countdown-unit-label {
+  font-size:.65rem;
+  opacity:.85;
+  margin-top:2px;
+}
+.countdown-sep {
+  font-size:1.6rem;
+  font-weight:700;
+  opacity:.5;
+  align-self:flex-start;
+  margin-top:2px;
+}
+
+/* ===== Section ===== */
+.section {
+  margin-bottom:28px;
+}
+.section-title {
+  font-size:1.05rem;
+  font-weight:700;
+  color: var(--text);
+  margin-bottom:12px;
+  padding-left:12px;
+  border-left:3px solid var(--accent);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.section-title .icon { font-size:1.1rem; }
+
+/* ===== Overview Map ===== */
+.overview-map {
+  background: var(--bg-card);
+  border-radius:16px;
+  padding:16px;
+  box-shadow: var(--shadow);
+  margin-bottom:8px;
+}
+.overview-map svg { width:100%; height:auto; display:block; }
+.map-legend {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+  justify-content:center;
+}
+.map-legend-item {
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font-size:.7rem;
+  color: var(--text-muted);
+}
+.map-legend-dot {
+  width:10px; height:10px;
+  border-radius:50%;
+}
+.map-legend-line {
+  width:16px; height:3px;
+  border-radius:2px;
+}
+
+/* ===== Confirmed Cards ===== */
+.confirmed-list { display:flex; flex-direction:column; gap:10px; }
+.confirmed-card {
+  background: var(--bg-card);
+  border-radius:12px;
+  padding:14px 16px;
+  box-shadow: var(--shadow);
+  border-left:3px solid var(--route-2);
+}
+.confirmed-card.flight { border-left-color: var(--route-1); }
+.confirmed-card.hotel { border-left-color: var(--route-3); }
+.confirmed-card.bus { border-left-color: var(--route-5); }
+.confirmed-card .type-badge {
+  display:inline-block;
+  font-size:.65rem;
+  font-weight:600;
+  padding:2px 8px;
+  border-radius:4px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  margin-bottom:6px;
+}
+.confirmed-card .title {
+  font-size:.95rem;
+  font-weight:600;
+  color: var(--text);
+  margin-bottom:4px;
+}
+.confirmed-card .info-row {
+  display:flex;
+  font-size:.8rem;
+  color: var(--text-muted);
+  margin-top:2px;
+  gap:6px;
+}
+.confirmed-card .info-row .label { min-width:3.5em; color: var(--text-light); }
+.confirmed-card .info-row .value { color: var(--text); flex:1; }
+.confirmed-card .time-highlight {
+  color: var(--accent);
+  font-weight:600;
+}
+
+/* ===== Daily Itinerary ===== */
+.day-card {
+  background: var(--bg-card);
+  border-radius:14px;
+  margin-bottom:12px;
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.day-header {
+  display:flex;
+  align-items:center;
+  padding:14px 16px;
+  cursor:pointer;
+  gap:12px;
+  transition: background .2s;
+}
+.day-header:active { background: var(--bg-card-alt); }
+.day-date {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:48px;
+}
+.day-date .day-num {
+  font-size:1.3rem;
+  font-weight:800;
+  color: var(--accent);
+  line-height:1;
+}
+.day-date .month {
+  font-size:.65rem;
+  color: var(--text-muted);
+}
+.day-info { flex:1; }
+.day-info .day-title {
+  font-size:.9rem;
+  font-weight:600;
+  color: var(--text);
+}
+.day-info .day-route {
+  font-size:.75rem;
+  color: var(--text-muted);
+  margin-top:2px;
+}
+.day-color-bar {
+  width:4px;
+  height:36px;
+  border-radius:2px;
+}
+.day-toggle {
+  font-size:.7rem;
+  color: var(--text-muted);
+  transition: transform .3s;
+}
+.day-card.open .day-toggle { transform: rotate(180deg); }
+.day-body {
+  max-height:0;
+  overflow:hidden;
+  transition: max-height .4s ease;
+}
+.day-card.open .day-body { max-height:2000px; }
+.day-body-inner { padding:0 16px 14px; }
+
+/* timeline */
+.timeline { position:relative; padding-left:20px; }
+.timeline::before {
+  content:'';
+  position:absolute;
+  left:6px; top:0; bottom:0;
+  width:2px;
+  background: var(--border);
+}
+.timeline-item {
+  position:relative;
+  margin-bottom:14px;
+  padding-left:8px;
+}
+.timeline-item:last-child { margin-bottom:0; }
+.timeline-item::before {
+  content:'';
+  position:absolute;
+  left:-20px; top:6px;
+  width:10px; height:10px;
+  border-radius:50%;
+  background: var(--bg-card);
+  border:2px solid var(--route-1);
+}
+.timeline-item .time {
+  font-size:.78rem;
+  font-weight:700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.timeline-item .content {
+  font-size:.83rem;
+  color: var(--text);
+  margin-top:2px;
+}
+.timeline-item .content .sub {
+  font-size:.72rem;
+  color: var(--text-muted);
+  margin-top:2px;
+}
+.timeline-item .book-tag {
+  display:inline-block;
+  font-size:.6rem;
+  padding:1px 6px;
+  border-radius:4px;
+  background: var(--warning-bg);
+  color: var(--warning-text);
+  margin-left:6px;
+  vertical-align:middle;
+}
+.timeline-item .location-link {
+  display:inline-block;
+  font-size:.7rem;
+  color: var(--accent);
+  text-decoration:underline;
+  margin-top:2px;
+  cursor:pointer;
+}
+
+/* day route map */
+.day-route-map {
+  margin:10px 0;
+  border-radius:10px;
+  overflow:hidden;
+  background: var(--bg-card-alt);
+  padding:10px;
+  display:none;
+}
+.day-card.open .day-route-map { display:block; }
+.day-route-map svg { width:100%; height:auto; }
+.day-nav-btn {
+  display:block;
+  width:100%;
+  text-align:center;
+  padding:8px;
+  border:none;
+  border-radius:8px;
+  background: var(--accent);
+  color:#fff;
+  font-size:.78rem;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:8px;
+}
+.day-nav-btn:active { opacity:.85; }
+
+/* ===== Todo List ===== */
+.todo-list {
+  background: var(--bg-card);
+  border-radius:12px;
+  padding:14px 16px;
+  box-shadow: var(--shadow);
+}
+.todo-item {
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  padding:8px 0;
+  border-bottom:1px solid var(--border);
+  font-size:.83rem;
+}
+.todo-item:last-child { border-bottom:none; }
+.todo-dot {
+  width:8px; height:8px;
+  border-radius:50%;
+  background: var(--text-light);
+  margin-top:6px;
+  flex-shrink:0;
+}
+.todo-item.done .todo-dot { background: var(--route-2); }
+.todo-item.done .todo-text { text-decoration:line-through; color: var(--text-muted); }
+
+/* ===== Night sky decoration ===== */
+.night-sky {
+  position:fixed;
+  top:0; left:0; right:0;
+  height:100%;
+  pointer-events:none;
+  z-index:-1;
+  display:none;
+}
+[data-theme="night"] .night-sky { display:block; }
+.night-sky .star {
+  position:absolute;
+  width:2px; height:2px;
+  background: var(--night-star);
+  border-radius:50%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+@keyframes twinkle {
+  0%,100% { opacity:.3; }
+  50% { opacity:1; }
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align:center;
+  padding:20px 0;
+  font-size:.7rem;
+  color: var(--text-light);
+}
+
+/* ===== Responsive ===== */
+@media (max-width:380px) {
+  .countdown-num { font-size:1.6rem; }
+  .countdown-unit { min-width:46px; }
+  .header h1 { font-size:1.3rem; }
+}
+
+/* ===== Animations ===== */
+@keyframes pulse {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(1.05); }
+}
+.countdown-num { animation: pulse 2s infinite ease-in-out; }
+.countdown-num.no-anim { animation: none; }
+
+/* smooth scroll */
+html { scroll-behavior:smooth; }
+
+/* location clickable */
+.clickable-location {
+  cursor:pointer;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+</style>
+</head>
+<body>
+
+<div class="night-sky" id="nightSky"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="theme-indicator" id="themeIcon">☀️</div>
+    <h1>越厦9日</h1>
+    <div class="subtitle">贵阳 → 胡志明 → 芽庄 → 大叻 → 胡志明 → 厦门 → 贵阳</div>
+    <div class="route-pills">
+      <span class="route-pill">9.26 出发</span>
+      <span class="route-pill">10.5 回家</span>
+      <span class="route-pill">2人</span>
+    </div>
+  </div>
+
+  <!-- Countdown Card -->
+  <div class="countdown-card" id="countdownCard">
+    <div class="countdown-label">距下一个行程事件</div>
+    <div class="countdown-event" id="countdownEvent">— —</div>
+    <div class="countdown-display" id="countdownDisplay">
+      <div class="countdown-unit"><div class="countdown-num" id="cdDays">0</div><div class="countdown-unit-label">天</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><div class="countdown-num" id="cdHours">0</div><div class="countdown-unit-label">时</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><div class="countdown-num" id="cdMins">0</div><div class="countdown-unit-label">分</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><div class="countdown-num" id="cdSecs">0</div><div class="countdown-unit-label">秒</div></div>
+    </div>
+  </div>
+
+  <!-- Overview Map -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🗺️</span>行程总览</div>
+    <div class="overview-map">
+      <svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" id="overviewSvg">
+        <!-- background -->
+        <rect width="680" height="400" fill="var(--bg-card-alt)" rx="12"/>
+
+        <!-- Decorative compass -->
+        <g transform="translate(620,50)" opacity="0.3">
+          <circle r="20" fill="none" stroke="var(--text-muted)" stroke-width="1"/>
+          <path d="M0,-18 L4,0 L0,18 L-4,0 Z" fill="var(--text-muted)"/>
+          <text y="-24" text-anchor="middle" font-size="10" fill="var(--text-muted)">N</text>
+        </g>
+
+        <!-- South China Sea decorative -->
+        <path d="M180,200 Q300,180 420,210 Q500,230 580,200" fill="none" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+
+        <!-- Route lines (drawn first, below city dots) -->
+        <!-- D1: Guiyang -> Ho Chi Minh (flight, red) -->
+        <path d="M120,80 Q200,150 340,280" fill="none" stroke="#e85d4a" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.8"/>
+        <!-- D2: HCM -> Nha Trang (flight, teal) -->
+        <path d="M340,280 Q360,250 380,220" fill="none" stroke="#4a9d8e" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.8"/>
+        <!-- D5: Nha Trang -> Da Lat (bus, purple) -->
+        <path d="M380,220 Q400,200 360,160" fill="none" stroke="#b35d8a" stroke-width="2.5" stroke-dasharray="5,3" opacity="0.8"/>
+        <!-- D8: Da Lat -> HCM (flight, gold) -->
+        <path d="M360,160 Q350,200 340,280" fill="none" stroke="#d4a04a" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.8"/>
+        <!-- D9: HCM -> Xiamen (flight, blue) -->
+        <path d="M340,280 Q280,200 200,80" fill="none" stroke="#6a7db3" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.8"/>
+        <!-- D10: Xiamen -> Guiyang (flight, red) -->
+        <path d="M200,80 Q160,70 120,80" fill="none" stroke="#e85d4a" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.8"/>
+
+        <!-- City dots and labels -->
+        <!-- Guiyang -->
+        <g>
+          <circle cx="120" cy="80" r="7" fill="#e85d4a"/>
+          <circle cx="120" cy="80" r="3" fill="var(--bg-card)"/>
+          <text x="120" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text)">贵阳</text>
+          <text x="120" y="100" text-anchor="middle" font-size="8" fill="var(--text-muted)">起点·终点</text>
+        </g>
+
+        <!-- Ho Chi Minh -->
+        <g>
+          <circle cx="340" cy="280" r="7" fill="#e85d4a"/>
+          <circle cx="340" cy="280" r="3" fill="var(--bg-card)"/>
+          <text x="340" y="302" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text)">胡志明</text>
+          <text x="340" y="316" text-anchor="middle" font-size="8" fill="var(--text-muted)">D2/D8 住宿</text>
+        </g>
+
+        <!-- Nha Trang -->
+        <g>
+          <circle cx="380" cy="220" r="7" fill="#4a9d8e"/>
+          <circle cx="380" cy="220" r="3" fill="var(--bg-card)"/>
+          <text x="395" y="218" font-size="11" font-weight="700" fill="var(--text)">芽庄</text>
+          <text x="395" y="232" font-size="8" fill="var(--text-muted)">D2-D4 住宿</text>
+        </g>
+
+        <!-- Da Lat -->
+        <g>
+          <circle cx="360" cy="160" r="7" fill="#b35d8a"/>
+          <circle cx="360" cy="160" r="3" fill="var(--bg-card)"/>
+          <text x="375" y="158" font-size="11" font-weight="700" fill="var(--text)">大叻</text>
+          <text x="375" y="172" font-size="8" fill="var(--text-muted)">D5-D7 住宿</text>
+        </g>
+
+        <!-- Xiamen -->
+        <g>
+          <circle cx="200" cy="80" r="7" fill="#6a7db3"/>
+          <circle cx="200" cy="80" r="3" fill="var(--bg-card)"/>
+          <text x="200" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text)">厦门</text>
+          <text x="200" y="100" text-anchor="middle" font-size="8" fill="var(--text-muted)">D9 中转</text>
+        </g>
+
+        <!-- Route labels -->
+        <text x="240" y="170" font-size="8" fill="#e85d4a" opacity="0.9" transform="rotate(-20,240,170)">✈ GY703</text>
+        <text x="370" y="255" font-size="8" fill="#4a9d8e" opacity="0.9">✈ VN1340</text>
+        <text x="395" y="195" font-size="8" fill="#b35d8a" opacity="0.9">🚌 大巴</text>
+        <text x="330" y="230" font-size="8" fill="#d4a04a" opacity="0.9" transform="rotate(75,330,230)">✈ VN7389</text>
+        <text x="250" y="210" font-size="8" fill="#6a7db3" opacity="0.9" transform="rotate(-30,250,210)">✈ MF842</text>
+        <text x="160" y="72" font-size="8" fill="#e85d4a" opacity="0.9">✈ MF8407</text>
+      </svg>
+      <div class="map-legend">
+        <div class="map-legend-item"><div class="map-legend-line" style="background:#e85d4a"></div>D1 出发</div>
+        <div class="map-legend-item"><div class="map-legend-line" style="background:#4a9d8e"></div>D2 飞芽庄</div>
+        <div class="map-legend-item"><div class="map-legend-line" style="background:#b35d8a"></div>D5 去大叻</div>
+        <div class="map-legend-item"><div class="map-legend-line" style="background:#d4a04a"></div>D8 回胡志明</div>
+        <div class="map-legend-item"><div class="map-legend-line" style="background:#6a7db3"></div>D9 飞厦门</div>
+        <div class="map-legend-item"><div class="map-legend-line" style="background:#e85d4a"></div>D10 回家</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmed Bookings -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎫</span>已确认订单</div>
+    <div class="confirmed-list">
+
+      <!-- Flight: Guiyang -> HCM -->
+      <div class="confirmed-card flight">
+        <span class="type-badge">✈ 航班</span>
+        <div class="title">多彩航空 GY703 · 贵阳→胡志明</div>
+        <div class="info-row"><span class="label">日期</span><span class="value"><span class="time-highlight">9月26日 23:45</span> → 9月27日 02:05(+1)</span></div>
+        <div class="info-row"><span class="label">机场</span><span class="value">龙洞堡T3 → 新山一T2</span></div>
+        <div class="info-row"><span class="label">飞行</span><span class="value">3小时20分 · 红眼航班</span></div>
+      </div>
+
+      <!-- Flight: HCM -> Nha Trang -->
+      <div class="confirmed-card flight">
+        <span class="type-badge">✈ 航班</span>
+        <div class="title">越南航空 VN1340 · 胡志明→芽庄</div>
+        <div class="info-row"><span class="label">日期</span><span class="value"><span class="time-highlight">9月27日 07:05→08:05</span></span></div>
+        <div class="info-row"><span class="label">机场</span><span class="value">新山一T3 → 金兰T1</span></div>
+        <div class="info-row"><span class="label">飞行</span><span class="value">1小时</span></div>
+      </div>
+
+      <!-- Hotel: Westin -->
+      <div class="confirmed-card hotel">
+        <span class="type-badge">🏨 酒店</span>
+        <div class="title">威斯汀金兰湾度假村 · 芽庄</div>
+        <div class="info-row"><span class="label">入住</span><span class="value"><span class="time-highlight">9月27日 15:00</span> 入住，9月29日退房（2晚）</span></div>
+        <div class="info-row"><span class="label">电话</span><span class="value">+84 258 399 3888</span></div>
+        <div class="info-row"><span class="label">地址</span><span class="value clickable-location" data-lat="12.05" data-lng="109.27" data-name="Westin Cam Ranh">Lot D14a Northern Peninsula, Cam Ranh, Khanh Hoa</span></div>
+      </div>
+
+      <!-- Hotel: PANAMA -->
+      <div class="confirmed-card hotel">
+        <span class="type-badge">🏨 酒店</span>
+        <div class="title">巴拿马芽庄酒店 PANAMA · 芽庄市区</div>
+        <div class="info-row"><span class="label">入住</span><span class="value"><span class="time-highlight">9月29日 14:00</span> 入住，9月30日退房（1晚）</span></div>
+        <div class="info-row"><span class="label">电话</span><span class="value">+84 258 355 0555</span></div>
+        <div class="info-row"><span class="label">地址</span><span class="value clickable-location" data-lat="12.246" data-lng="109.193" data-name="PANAMA Nha Trang">39 Hung Vuong, Loc Tho, Nha Trang</span></div>
+      </div>
+
+      <!-- Bus: Nha Trang -> Da Lat -->
+      <div class="confirmed-card bus" style="border-left-style:dashed;">
+        <span class="type-badge" style="background:var(--warning-bg);color:var(--warning-text);">🚌 大巴 · 待确认</span>
+        <div class="title">芽庄→大叻 · Vexere（待订）</div>
+        <div class="info-row"><span class="label">日期</span><span class="value">9月30日 上午出发（班次待定）</span></div>
+        <div class="info-row"><span class="label">车程</span><span class="value">约3.5-4小时 · 山路</span></div>
+        <div class="info-row"><span class="label">预订</span><span class="value" style="color:var(--warning-text);">⚠ 订完后告知具体班次</span></div>
+      </div>
+
+      <!-- Hotel: NIA Da Lat -->
+      <div class="confirmed-card hotel">
+        <span class="type-badge">🏨 酒店</span>
+        <div class="title">尼亚酒店 NIA Hotel · 大叻</div>
+        <div class="info-row"><span class="label">入住</span><span class="value"><span class="time-highlight">9月30日 14:00</span> 入住，10月3日退房（3晚）</span></div>
+        <div class="info-row"><span class="label">电话</span><span class="value">+84 337 166 2286</span></div>
+        <div class="info-row"><span class="label">地址</span><span class="value clickable-location" data-lat="11.936" data-lng="108.440" data-name="NIA Hotel Da Lat">43 Tran Binh Trong St, Ward 5, Da Lat</span></div>
+      </div>
+
+      <!-- Flight: Da Lat -> HCM -->
+      <div class="confirmed-card flight">
+        <span class="type-badge">✈ 航班</span>
+        <div class="title">越南航空 VN7389 · 大叻→胡志明</div>
+        <div class="info-row"><span class="label">日期</span><span class="value"><span class="time-highlight">10月3日 15:40→16:35</span></span></div>
+        <div class="info-row"><span class="label">机场</span><span class="value">莲姜DLI → 新山一T3</span></div>
+        <div class="info-row"><span class="label">飞行</span><span class="value">55分钟</span></div>
+      </div>
+
+      <!-- Hotel: M Village -->
+      <div class="confirmed-card hotel">
+        <span class="type-badge">🏨 酒店</span>
+        <div class="title">M Village Cửu Long · 胡志明</div>
+        <div class="info-row"><span class="label">入住</span><span class="value"><span class="time-highlight">10月3日 14:00</span> 入住，10月4日退房（1晚）</span></div>
+        <div class="info-row"><span class="label">电话</span><span class="value">+84 818 999 8860</span></div>
+        <div class="info-row"><span class="label">地址</span><span class="value clickable-location" data-lat="10.773" data-lng="106.703" data-name="M Village Cuu Long HCMC">44a Cửu Long, Ho Chi Minh City</span></div>
+      </div>
+
+      <!-- Flight: HCM -> Xiamen -->
+      <div class="confirmed-card flight">
+        <span class="type-badge">✈ 航班</span>
+        <div class="title">厦门航空 MF842 · 胡志明→厦门</div>
+        <div class="info-row"><span class="label">日期</span><span class="value"><span class="time-highlight">10月4日 08:00→11:55</span></span></div>
+        <div class="info-row"><span class="label">机场</span><span class="value">新山一T2 → 高崎T3</span></div>
+        <div class="info-row"><span class="label">飞行</span><span class="value">2小时55分</span></div>
+      </div>
+
+      <!-- Hotel: Xiamen Transit -->
+      <div class="confirmed-card hotel" style="border-left-style:dashed;">
+        <span class="type-badge" style="background:var(--warning-bg);color:var(--warning-text);">🏨 中转住宿 · 待确认</span>
+        <div class="title">厦门中转酒店 · 待定</div>
+        <div class="info-row"><span class="label">入住</span><span class="value">10月4日晚，10月5日早起赶飞机</span></div>
+        <div class="info-row"><span class="label">建议</span><span class="value" style="color:var(--warning-text);">⚠ 选高崎机场附近，次日07:20起飞</span></div>
+      </div>
+
+      <!-- Flight: Xiamen -> Guiyang -->
+      <div class="confirmed-card flight">
+        <span class="type-badge">✈ 航班</span>
+        <div class="title">厦门航空 MF8407 · 厦门→贵阳</div>
+        <div class="info-row"><span class="label">日期</span><span class="value"><span class="time-highlight">10月5日 07:20→09:40</span></span></div>
+        <div class="info-row"><span class="label">机场</span><span class="value">高崎T3 → 龙洞堡T3</span></div>
+        <div class="info-row"><span class="label">飞行</span><span class="value">2小时30分 · 回家</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Daily Itinerary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📅</span>逐日行程</div>
+    <div id="dayCards"></div>
+  </div>
+
+  <!-- Todo List -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📋</span>待办清单</div>
+    <div class="todo-list" id="todoList">
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">确认芽庄→大叻 Vexere 大巴班次并订票</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">预订厦门高崎机场附近中转酒店（10月4日入住1晚）</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">办理越南另纸签 ✅ 已完成</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">准备越南盾现金或确认ATM取现方案</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">购买越南电话卡或确认国际漫游方案</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">下载离线地图（Google Maps离线包覆盖胡志明/芽庄/大叻）</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">确认各酒店接机服务或打车方案（Grab/出租车）</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">检查各景点闭馆日并安排避开</div></div>
+      <div class="todo-item"><div class="todo-dot"></div><div class="todo-text">旅行保险</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    越厦9日 · 旅行手册<br>
+    <span style="opacity:.6">点击任意地点名称可唤起 Google 地图导航</span>
+  </div>
+
+</div>
+
+<script>
+// ===== TRAVEL DATA =====
+const TRAVEL_DATA = {
+  events: [
+    // D1 - Departure
+    { time: '2026-09-26T23:45:00+08:00', tz:'+08:00', label: '贵阳出发 · GY703 航班起飞', city:'贵阳', lat:26.10, lng:106.70 },
+    // D2 - Arrive HCM, fly to Nha Trang
+    { time: '2026-09-27T02:05:00+07:00', tz:'+07:00', label: '抵达胡志明 · 新山一机场T2', city:'胡志明', lat:10.81, lng:106.65 },
+    { time: '2026-09-27T07:05:00+07:00', tz:'+07:00', label: '胡志明飞芽庄 · VN1340 起飞', city:'胡志明', lat:10.81, lng:106.65 },
+    { time: '2026-09-27T08:05:00+07:00', tz:'+07:00', label: '抵达芽庄 · 金兰机场T1', city:'芽庄', lat:11.50, lng:109.20 },
+    { time: '2026-09-27T15:00:00+07:00', tz:'+07:00', label: '入住威斯汀金兰湾度假村', city:'芽庄', lat:12.05, lng:109.27 },
+    // D3 - Nha Trang
+    { time: '2026-09-28T09:00:00+07:00', tz:'+07:00', label: '芽庄自由活动 · 威斯汀度假', city:'芽庄', lat:12.05, lng:109.27 },
+    // D4 - Switch hotel
+    { time: '2026-09-29T12:00:00+07:00', tz:'+07:00', label: '退房威斯汀 · 转住芽庄市区', city:'芽庄', lat:12.246, lng:109.193 },
+    { time: '2026-09-29T14:00:00+07:00', tz:'+07:00', label: '入住巴拿马芽庄酒店', city:'芽庄', lat:12.246, lng:109.193 },
+    // D5 - Bus to Da Lat
+    { time: '2026-09-30T08:00:00+07:00', tz:'+07:00', label: '芽庄出发去大叻 · 大巴（待订）', city:'芽庄', lat:12.246, lng:109.193 },
+    { time: '2026-09-30T14:00:00+07:00', tz:'+07:00', label: '抵达大叻 · 入住NIA酒店', city:'大叻', lat:11.936, lng:108.440 },
+    // D6 - Da Lat
+    { time: '2026-10-01T09:00:00+07:00', tz:'+07:00', label: '大叻游览', city:'大叻', lat:11.936, lng:108.440 },
+    // D7 - Da Lat
+    { time: '2026-10-02T09:00:00+07:00', tz:'+07:00', label: '大叻游览', city:'大叻', lat:11.936, lng:108.440 },
+    // D8 - Fly back to HCM
+    { time: '2026-10-03T15:40:00+07:00', tz:'+07:00', label: '大叻飞胡志明 · VN7389 起飞', city:'大叻', lat:11.87, lng:108.49 },
+    { time: '2026-10-03T16:35:00+07:00', tz:'+07:00', label: '抵达胡志明 · 新山一T3', city:'胡志明', lat:10.81, lng:106.65 },
+    { time: '2026-10-03T17:30:00+07:00', tz:'+07:00', label: '入住M Village胡志明', city:'胡志明', lat:10.773, lng:106.703 },
+    // D9 - Fly to Xiamen
+    { time: '2026-10-04T08:00:00+07:00', tz:'+07:00', label: '胡志明飞厦门 · MF842 起飞', city:'胡志明', lat:10.81, lng:106.65 },
+    { time: '2026-10-04T11:55:00+08:00', tz:'+08:00', label: '抵达厦门 · 高崎T3', city:'厦门', lat:24.51, lng:118.13 },
+    // D10 - Fly home
+    { time: '2026-10-05T07:20:00+08:00', tz:'+08:00', label: '厦门飞贵阳 · MF8407 起飞', city:'厦门', lat:24.51, lng:118.13 },
+    { time: '2026-10-05T09:40:00+08:00', tz:'+08:00', label: '抵达贵阳 · 回家！', city:'贵阳', lat:26.10, lng:106.70 },
+  ],
+
+  days: [
+    {
+      day:1, date:'9月26日', weekday:'周五', route:'贵阳 → 胡志明', color:'#e85d4a',
+      title:'出发日 · 红眼航班', city:'贵阳', lat:26.10, lng:106.70,
+      items:[
+        {time:'21:00', content:'出发前往龙洞堡机场', sub:'T3航站楼', book:false, lat:26.10, lng:106.80, name:'贵阳龙洞堡机场T3'},
+        {time:'23:45', content:'多彩航空 GY703 航班起飞', sub:'飞行3小时20分 → 02:05(+1)到胡志明', book:true, lat:26.10, lng:106.80, name:'贵阳龙洞堡机场'},
+      ]
+    },
+    {
+      day:2, date:'9月27日', weekday:'周六', route:'胡志明 → 芽庄', color:'#4a9d8e',
+      title:'转机日 · 凌晨到胡志明', city:'胡志明→芽庄', lat:11.50, lng:109.20,
+      items:[
+        {time:'02:05', content:'抵达胡志明新山一机场T2', sub:'越南时间UTC+7 · 过海关(另纸签) · 机场等待', book:false, lat:10.81, lng:106.65, name:'胡志明新山一机场T2'},
+        {time:'07:05', content:'越南航空 VN1340 航班起飞', sub:'T3航站楼 → 飞行1小时 → 08:05到芽庄金兰机场', book:true, lat:10.81, lng:106.65, name:'胡志明新山一机场T3'},
+        {time:'08:05', content:'抵达芽庄金兰机场T1', sub:'打车前往威斯汀（约30min）', book:false, lat:11.50, lng:109.20, name:'芽庄金兰机场T1'},
+        {time:'15:00', content:'入住威斯汀金兰湾度假村', sub:'寄存行李 → 海边休整', book:true, lat:12.05, lng:109.27, name:'Westin Resort Cam Ranh'},
+      ]
+    },
+    {
+      day:3, date:'9月28日', weekday:'周日', route:'芽庄', color:'#4a9d8e',
+      title:'芽庄度假日', city:'芽庄', lat:12.05, lng:109.27,
+      items:[
+        {time:'全天', content:'威斯汀金兰湾度假村', sub:'海滩/泳池/SPA · 度假模式', book:false, lat:12.05, lng:109.27, name:'Westin Resort Cam Ranh'},
+        {time:'傍晚', content:'金兰湾日落', sub:'酒店海边即可', book:false, lat:12.05, lng:109.27, name:'金兰湾 Cam Ranh Bay'},
+      ]
+    },
+    {
+      day:4, date:'9月29日', weekday:'周一', route:'芽庄', color:'#4a9d8e',
+      title:'转住市区', city:'芽庄', lat:12.246, lng:109.193,
+      items:[
+        {time:'上午', content:'威斯汀退房', sub:'可寄存行李继续使用酒店设施', book:false, lat:12.05, lng:109.27, name:'Westin Cam Ranh'},
+        {time:'下午', content:'前往芽庄市区', sub:'打车约40-50分钟', book:false, lat:12.246, lng:109.193, name:'芽庄市区'},
+        {time:'14:00', content:'入住巴拿马芽庄酒店', sub:'39 Hung Vuong Street', book:true, lat:12.246, lng:109.193, name:'PANAMA Nha Trang Hotel'},
+        {time:'下午', content:'芽庄海滩 / 夜市', sub:'步行可达', book:false, lat:12.238, lng:109.198, name:'芽庄海滩 Nha Trang Beach'},
+      ]
+    },
+    {
+      day:5, date:'9月30日', weekday:'周二', route:'芽庄 → 大叻', color:'#b35d8a',
+      title:'大巴转场日', city:'芽庄→大叻', lat:11.936, lng:108.440,
+      items:[
+        {time:'上午', content:'退房 · 乘大巴前往大叻', sub:'Vexere · 约3.5-4小时山路 · 班期待定', book:true, lat:12.246, lng:109.193, name:'PANAMA Nha Trang'},
+        {time:'下午', content:'抵达大叻', sub:'约12:00-14:00到达（取决于班次）', book:false, lat:11.936, lng:108.440, name:'大叻 Da Lat'},
+        {time:'14:00', content:'入住NIA酒店', sub:'43 Tran Binh Trong St', book:true, lat:11.936, lng:108.440, name:'NIA Hotel Da Lat'},
+        {time:'傍晚', content:'大叻夜市 / 春香湖', sub:'步行可达', book:false, lat:11.944, lng:108.441, name:'春香湖 Xuan Huong Lake'},
+      ]
+    },
+    {
+      day:6, date:'10月1日', weekday:'周三', route:'大叻', color:'#b35d8a',
+      title:'大叻游览', city:'大叻', lat:11.936, lng:108.440,
+      items:[
+        {time:'上午', content:'大叻旧火车站', sub:'窄轨铁路 · 复古拍照', book:false, lat:11.938, lng:108.460, name:'大叻旧火车站 Da Lat Railway Station'},
+        {time:'中午', content:'大叻市场', sub:'本地美食', book:false, lat:11.940, lng:108.436, name:'大叻市场 Da Lat Market'},
+        {time:'下午', content:'疯狂屋 / 灵福寺', sub:'奇特建筑', book:false, lat:11.929, lng:108.449, name:'疯狂屋 Crazy House Da Lat'},
+      ]
+    },
+    {
+      day:7, date:'10月2日', weekday:'周四', route:'大叻', color:'#b35d8a',
+      title:'大叻深度游', city:'大叻', lat:11.936, lng:108.440,
+      items:[
+        {time:'上午', content:'大叻花园 / 爱情谷', sub:'自然风光', book:false, lat:11.960, lng:108.440, name:'大叻花园 Da Lat Flower Garden'},
+        {time:'下午', content:'保大夏宫 / 大叻缆车', sub:'历史/观景', book:false, lat:11.950, lng:108.430, name:'保大夏宫 Bao Dai Palace'},
+        {time:'晚上', content:'大叻夜市', sub:'夜市小吃/红酒广场', book:false, lat:11.940, lng:108.436, name:'大叻夜市 Da Lat Night Market'},
+      ]
+    },
+    {
+      day:8, date:'10月3日', weekday:'周五', route:'大叻 → 胡志明', color:'#d4a04a',
+      title:'飞回胡志明', city:'大叻→胡志明', lat:10.81, lng:106.65,
+      items:[
+        {time:'上午', content:'大叻最后的游览/购物', sub:'NIA酒店可寄存行李', book:false, lat:11.936, lng:108.440, name:'NIA Hotel Da Lat'},
+        {time:'14:00', content:'退房 · 前往莲姜机场', sub:'打车约35min', book:false, lat:11.936, lng:108.440, name:'NIA Hotel Da Lat'},
+        {time:'15:40', content:'越南航空 VN7389 航班起飞', sub:'飞行55分钟 → 16:35到胡志明', book:true, lat:11.50, lng:108.48, name:'大叻莲姜机场 DLI'},
+        {time:'16:35', content:'抵达胡志明新山一T3', sub:'打车前往酒店', book:false, lat:10.81, lng:106.65, name:'胡志明新山一机场T3'},
+        {time:'17:30', content:'入住M Village', sub:'44a Cửu Long · 傍晚可逛胡志明', book:true, lat:10.773, lng:106.703, name:'M Village Cuu Long HCMC'},
+      ]
+    },
+    {
+      day:9, date:'10月4日', weekday:'周六', route:'胡志明 → 厦门', color:'#6a7db3',
+      title:'飞厦门 · 中转日', city:'胡志明→厦门', lat:24.51, lng:118.13,
+      items:[
+        {time:'06:00', content:'退房 · 前往新山一机场T2', sub:'国际航班提前3小时', book:false, lat:10.773, lng:106.703, name:'M Village Cuu Long HCMC'},
+        {time:'08:00', content:'厦门航空 MF842 航班起飞', sub:'飞行2小时55分 → 11:55到厦门(北京时间)', book:true, lat:10.81, lng:106.65, name:'胡志明新山一机场T2'},
+        {time:'11:55', content:'抵达厦门高崎T3', sub:'北京时间 UTC+8', book:false, lat:24.51, lng:118.13, name:'厦门高崎机场T3'},
+        {time:'下午', content:'厦门游览', sub:'中山路/鼓浪屿(时间有限建议选一个)', book:false, lat:24.47, lng:118.09, name:'厦门中山路/鼓浪屿'},
+        {time:'晚上', content:'入住厦门中转酒店', sub:'建议选机场附近，次日07:20起飞', book:true, lat:24.51, lng:118.13, name:'厦门高崎机场附近酒店'},
+      ]
+    },
+    {
+      day:10, date:'10月5日', weekday:'周日', route:'厦门 → 贵阳', color:'#e85d4a',
+      title:'回家日', city:'厦门→贵阳', lat:26.10, lng:106.70,
+      items:[
+        {time:'06:00', content:'退房 · 前往高崎T3', sub:'早起赶飞机', book:false, lat:24.51, lng:118.13, name:'厦门高崎机场T3'},
+        {time:'07:20', content:'厦门航空 MF8407 航班起飞', sub:'飞行2小时30分', book:true, lat:24.51, lng:118.13, name:'厦门高崎机场T3'},
+        {time:'09:40', content:'抵达贵阳龙洞堡T3', sub:'回家！旅行结束 🎉', book:false, lat:26.10, lng:106.80, name:'贵阳龙洞堡机场T3'},
+      ]
+    },
+  ]
+};
+
+// ===== THEME DETECTION =====
+function detectTheme() {
+  const hour = new Date().getHours();
+  return (hour >= 18 || hour < 6) ? 'night' : 'day';
+}
+
+function applyTheme() {
+  const theme = detectTheme();
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeIcon').textContent = theme === 'night' ? '🌙' : '☀️';
+}
+
+// ===== NIGHT SKY =====
+function createNightSky() {
+  const sky = document.getElementById('nightSky');
+  for (let i=0; i<60; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.animationDelay = Math.random()*3 + 's';
+    star.style.animationDuration = (2 + Math.random()*3) + 's';
+    sky.appendChild(star);
+  }
+}
+
+// ===== COUNTDOWN =====
+function getNextEvent() {
+  const now = Date.now();
+  for (const ev of TRAVEL_DATA.events) {
+    const evTime = new Date(ev.time).getTime();
+    if (evTime > now) return ev;
+  }
+  return null;
+}
+
+function updateCountdown() {
+  const ev = getNextEvent();
+  const card = document.getElementById('countdownCard');
+  const eventEl = document.getElementById('countdownEvent');
+
+  if (!ev) {
+    eventEl.textContent = '旅行已结束';
+    document.getElementById('cdDays').textContent = '0';
+    document.getElementById('cdHours').textContent = '0';
+    document.getElementById('cdMins').textContent = '0';
+    document.getElementById('cdSecs').textContent = '0';
+    card.style.opacity = '0.6';
+    return;
+  }
+
+  eventEl.textContent = ev.label;
+
+  const now = Date.now();
+  const target = new Date(ev.time).getTime();
+  const diff = target - now;
+
+  if (diff <= 0) return;
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+
+  // Add no-anim class to prevent pulse during value change
+  const elems = ['cdDays','cdHours','cdMins','cdSecs'];
+  const vals = [days, hours, mins, secs];
+  elems.forEach((id, i) => {
+    const el = document.getElementById(id);
+    const strVal = String(vals[i]).padStart(2,'0');
+    if (el.textContent !== strVal) {
+      el.classList.add('no-anim');
+      el.textContent = strVal;
+      setTimeout(() => el.classList.remove('no-anim'), 50);
+    }
+  });
+}
+
+// ===== DAY CARDS =====
+function renderDayCards() {
+  const container = document.getElementById('dayCards');
+  let html = '';
+
+  TRAVEL_DATA.days.forEach((day, idx) => {
+    const items = day.items.map(item => {
+      let locHtml = '';
+      if (item.lat && item.lng && item.name) {
+        locHtml = `<div class="location-link" data-lat="${item.lat}" data-lng="${item.lng}" data-name="${item.name}">📍 ${item.name} → 导航</div>`;
+      }
+      return `
+        <div class="timeline-item">
+          <div class="time">${item.time}</div>
+          <div class="content">${item.content}${item.book ? '<span class="book-tag">需提前订</span>' : ''}
+            <div class="sub">${item.sub || ''}</div>
+            ${locHtml}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Day route SVG
+    const routeSvg = generateDayRouteSvg(day);
+
+    // Multi-stop navigation URL
+    const navPoints = day.items.filter(i => i.lat && i.lng).map(i => `${i.lat},${i.lng}`);
+    const navUrl = navPoints.length > 1
+      ? `https://www.google.com/maps/dir/${navPoints.join('/')}`
+      : navPoints.length === 1
+        ? `https://www.google.com/maps/dir/?api=1&destination=${navPoints[0]}`
+        : '#';
+
+    html += `
+      <div class="day-card" id="day${day.day}">
+        <div class="day-header" onclick="toggleDay(${day.day})">
+          <div class="day-color-bar" style="background:${day.color}"></div>
+          <div class="day-date">
+            <div class="day-num">D${day.day}</div>
+            <div class="month">${day.date.replace('月','/')}</div>
+          </div>
+          <div class="day-info">
+            <div class="day-title">${day.title}</div>
+            <div class="day-route">${day.route} · ${day.weekday}</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-body-inner">
+            <div class="day-route-map">${routeSvg}</div>
+            <div class="timeline">${items}</div>
+            ${navPoints.length > 1 ? `<button class="day-nav-btn" onclick="window.open('${navUrl}', '_blank')">🗺️ 一键打开全天多点导航</button>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function generateDayRouteSvg(day) {
+  const points = day.items.filter(i => i.lat && i.lng);
+  if (points.length === 0) return '';
+
+  // Simple SVG showing route points
+  const width = 600;
+  const height = 120;
+  const padding = 30;
+  const spacing = (width - padding*2) / Math.max(points.length - 1, 1);
+
+  let pathD = '';
+  let dots = '';
+  let labels = '';
+
+  points.forEach((pt, i) => {
+    const x = padding + spacing * i;
+    const y = height/2 + (i % 2 === 0 ? -10 : 10);
+    if (i === 0) pathD += `M${x},${y}`;
+    else pathD += ` L${x},${y}`;
+    dots += `<circle cx="${x}" cy="${y}" r="6" fill="${day.color}" opacity="0.9"/><circle cx="${x}" cy="${y}" r="3" fill="var(--bg-card)"/>`;
+    const shortName = pt.name.length > 8 ? pt.name.substring(0,7)+'…' : pt.name;
+    labels += `<text x="${x}" y="${y+22}" text-anchor="middle" font-size="7" fill="var(--text-muted)">${shortName}</text>`;
+  });
+
+  return `
+    <svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+      <path d="${pathD}" fill="none" stroke="${day.color}" stroke-width="2" stroke-dasharray="4,3" opacity="0.7"/>
+      ${dots}
+      ${labels}
+    </svg>
+  `;
+}
+
+function toggleDay(dayNum) {
+  const card = document.getElementById('day' + dayNum);
+  card.classList.toggle('open');
+}
+
+// ===== LOCATION CLICK -> GOOGLE MAPS =====
+function setupLocationClicks() {
+  document.addEventListener('click', function(e) {
+    // Location links in timeline
+    if (e.target.classList.contains('location-link') || e.target.classList.contains('clickable-location')) {
+      const lat = e.target.dataset.lat;
+      const lng = e.target.dataset.lng;
+      const name = e.target.dataset.name || '';
+      if (lat && lng) {
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${encodeURIComponent(name)}`;
+        window.open(url, '_blank');
+      }
+    }
+  });
+}
+
+// ===== INIT =====
+applyTheme();
+createNightSky();
+renderDayCards();
+setupLocationClicks();
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Re-check theme every 5 minutes
+setInterval(applyTheme, 300000);
+</script>
+</body>
+</html>
